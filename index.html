@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quotely — a MERVEX product</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050920;--ink:#f4f5ff;--mute:#9aa0c8;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.12);--a:#6a2cff;--b:#ff2bd6;--g:linear-gradient(120deg,var(--a),var(--b));box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="light"]{--bg:#f5f4ff;--ink:#12123a;--mute:#5d6090;--card:rgba(255,255,255,.7);--line:rgba(18,18,58,.14)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:Sora,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden;transition:background .3s}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.bg i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(90px);opacity:.38;animation:drift 26s ease-in-out infinite alternate}
+.bg i:nth-child(1){background:var(--a);left:-15vmax;top:-18vmax}
+.bg i:nth-child(2){background:var(--b);right:-20vmax;bottom:-22vmax;animation-duration:32s;opacity:.28}
+.bg i:nth-child(3){background:#2b5bff;left:35%;top:40%;width:30vmax;height:30vmax;animation-duration:22s;opacity:.2}
+:root[data-theme="light"] .bg i{opacity:.22}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+header{display:flex;align-items:center;justify-content:space-between;padding:22px clamp(18px,5vw,56px)}
+.brand{font-weight:700;font-size:1.25rem;letter-spacing:.02em}
+.brand small{display:block;font-weight:300;font-size:.72rem;color:var(--mute);letter-spacing:.04em}
+.iconbtn{background:var(--card);border:1px solid var(--line);color:var(--ink);width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:1.05rem}
+main{max-width:860px;margin:0 auto;padding:0 clamp(18px,5vw,40px) 140px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0 34px}
+.chip{font:inherit;font-size:.82rem;padding:8px 16px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--mute);cursor:pointer;transition:.2s}
+.chip[aria-pressed=true]{background:var(--g);color:#fff;border-color:transparent}
+.stage{min-height:260px;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:10px 0}
+#q{font-size:clamp(1.55rem,4.6vw,2.7rem);font-weight:600;line-height:1.28;margin:0;max-width:22em;margin-inline:auto;transition:opacity .3s,transform .3s}
+#by{margin-top:20px;color:var(--mute);font-weight:300;transition:opacity .3s}
+.out #q,.out #by{opacity:0;transform:translateY(8px)}
+.bar{height:3px;background:var(--line);border-radius:3px;margin:30px auto 26px;max-width:340px;overflow:hidden}
+.bar b{display:block;height:100%;width:100%;background:var(--g);transform-origin:left;animation:fill 10s linear forwards}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn{font:inherit;font-size:.92rem;padding:12px 22px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:transform .15s,border-color .2s}
+.btn:hover{border-color:var(--b)}.btn:active{transform:scale(.97)}
+.btn.main{background:var(--g);border-color:transparent;color:#fff;font-weight:600}
+.btn.on{border-color:var(--b);color:var(--b)}
+section{margin-top:64px}
+h2{font-size:1.05rem;font-weight:600;margin:0 0 6px}
+.sub{color:var(--mute);font-size:.85rem;margin:0 0 18px;font-weight:300}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;backdrop-filter:blur(8px)}
+form{display:grid;gap:10px}
+input,textarea,select{font:inherit;font-size:.92rem;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 13px;width:100%}
+textarea{resize:vertical;min-height:84px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+select option{color:#111}
+:focus-visible{outline:2px solid var(--b);outline-offset:2px}
+#msg{font-size:.82rem;color:var(--mute);min-height:1.2em}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+li{border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:.92rem;line-height:1.5;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;background:var(--card)}
+li span small{display:block;color:var(--mute);font-weight:300;margin-top:3px}
+li button{background:none;border:0;color:var(--mute);cursor:pointer;font-size:.85rem}
+.empty{color:var(--mute);font-size:.88rem}
+.badge{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:0;text-decoration:none;color:var(--ink);z-index:9}
+.badge .m{width:60px;height:60px;border-radius:50%;background:#070b2c;border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;box-shadow:0 8px 28px rgba(106,44,255,.55);transition:transform .2s}
+.badge .m img{width:32px;height:auto}
+.badge .t{margin-left:-14px;padding:9px 16px 9px 26px;border-radius:0 99px 99px 0;background:#070b2c;color:#f4f5ff;border:1px solid rgba(255,255,255,.14);border-left:0;font-size:.74rem;line-height:1.35;z-index:-1}
+.badge .t b{display:block;font-weight:600}.badge .t span{color:#9aa0c8;font-weight:300}
+.badge:hover .m{transform:scale(1.07)}
+@media(max-width:520px){.badge .t{display:none}.row{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.bg i,.bar b{animation:none}.bar b{transform:none}*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
+<header>
+  <div class="brand">Quotely<small>A product of MERVEX</small></div>
+  <button class="iconbtn" id="theme" aria-label="Switch light or dark theme">☾</button>
+</header>
+<main>
+  <div class="chips" id="chips" role="group" aria-label="Quote category"></div>
+  <div class="stage" id="stage" aria-live="polite">
+    <p id="q"></p><div id="by"></div>
+  </div>
+  <div class="bar" aria-hidden="true"><b id="prog"></b></div>
+  <div class="acts">
+    <button class="btn main" id="next">New quote</button>
+    <button class="btn" id="copy">Copy quote</button>
+    <button class="btn" id="fav" aria-pressed="false">♡ Favorite</button>
+  </div>
+
+  <section>
+    <h2>Add your own quote</h2>
+    <p class="sub">Your quote joins the rotation.</p>
+    <div class="panel"><form id="form">
+      <textarea id="nt" maxlength="160" placeholder="Write a quote (max 160 characters)" required aria-label="Quote text"></textarea>
+      <div class="row">
+        <input id="nn" maxlength="24" placeholder="Your name (optional)" aria-label="Your name">
+        <select id="nc" aria-label="Category"><option>Motivation</option><option>Coding</option><option>Success</option><option>Life</option><option>Creativity</option></select>
+      </div>
+      <button class="btn main" type="submit">Add quote</button>
+      <div id="msg" role="status"></div>
+    </form></div>
+  </section>
+
+  <section>
+    <h2>Added by you</h2>
+    <p class="sub">Quotes added on this device.</p>
+    <ul id="comm"><li class="empty">No community quotes yet. Add the first one above.</li></ul>
+  </section>
+
+  <section>
+    <h2>Your favorites</h2>
+    <p class="sub">Saved in this browser.</p>
+    <ul id="favs"></ul>
+  </section>
+</main>
+
+<a class="badge" href="mailto:info.mervexcodes@gmail.com?subject=Hello%20MERVEX" aria-label="Email MERVEX at info.mervexcodes@gmail.com">
+  <div class="m"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAABACAYAAABLAmSPAAAZJklEQVR42t17eXxd1XXut9be517JkiyPkiUbDAab2BjTPhwghMRWnEJpTCgBm4bBhJahkDpAHJIwtLKSMBXICCY2JC2FJERKyQvgMlsWUxhsgsEYYxxjPGqwJWvWvWfvtfrHPudeMT4I7/UlOb/f/en+rq7O2Xuvtb71fd/eIvwZXgq1BHLX4brKw6s+/p2XhjbcwX9OE6xHPSvUEMj9ZPxNh5879fRVM0sPnDswes/6P6sopu/XHfjclzur3tirE1WfO+Dxa/9c5kiKZgsAi8ecO+m1yRt+qQcPqU7o0q6qrX5Z9YrPAKA/6Rk2otEwQvU9UHPf8btGv7FZJ8Sam9SR91N65fXJr745Y/yMcgDAHDRbQP/kZtycRBGTUfLigS9d37N/V16r+3Rg/O54qLY91qle1+3/4k+TtC5i0QKo+RMCHAaAn9X86mPb9t/2hB4oGk/q8oOT2n2utkPjqk6Xm9Sj90+654sAoHPU4rTKh79RXb2kLKSCmj/m6CqUKSm3pyc8e3Z7VVu7jslpX1V73F/bLrmJe3Vo0h6vtQPaVrNjx5IDvj2ZksXB1ybv069NaX/2tOr75hZXrdn+sQFOmqqXT7h6/IuTX/73gcn9OlDTp/uq2lxv9R7tn9ChgxP36tB+e50erLL+gPUrk8UxAIgHtc9n8+OPrNW5Dy2u3nTjlNELKhtQ55LJ0h9Lqtahzt0x4Z455+iZLTP89LMH3ZAfMoNCkTFgQEGAJ0AAkKet2vMoACzFagKgnO+F6e4TgZREVXbqki+OXvbEhfs9eVwD6hyB9f9n7TZDbQMahEBYNXHNFXN47oNVNGF6R77Lea8GnliVACIQEQQCkzfc3tuWf6k/RBRYLQBAX6rYriPtJNhMrBbsS62xGg/E+7D9xh+WXvAtvNkyVA+1DSAPQP+HapEAGAK5b46/5uDToy/dWIMJJ+V8L4Rib8HGADCqMAZgEJgAhZeK/CjeqFuenH7oIXXUQk6TIbPJGLAFFEwisH1Decm5rBmnh1x+Vb5x9emT7v90A8gB9D8S3UaoYbASyN09vuWU0+25qydozUndvtvl2SvYGGVAGRAGRABNXgx2KGd0lnQ+hBY4gdg09dlkCcYCEEAUUDCrURok58q46qjDUPfAV/d77QpATRPI/78EqmY024UgP+aQaRX31W74wSya3TjCj5q4x3c5BVsok/gwTg9AiaAIk/Q+9iUSZfbmO+XV+M2nAGAt1lKS+kL/MGGXjqQaiPcgryAAlgiWFQyRLCyVEFOPbF+1i9dd/NO2E9c3Qs0rWKoNaJD/O4CjvBQAgeSWiY/OmiEzb6vV6iMHfZ8AjjJsyKjCQGEYYCgMAZaS96JujC+ze7Sr6zl57ZLPdc69cz3WRzMxM391+eXj/7LiiHo6e+xOreBagByMAgzAAGBNbkSqVuHLKLIu6tvTwzuuunb79OUpyWgKtfuRUnVhco9/q/3dl6dg6rdG+hFjBn2PyxCMVSbDiogIzICBgsUjYgbgtYRZxtpRZktuywsPDa46/6Lu89YqNCJQfPMBNxz1tzr/dp+nmXTW2J1ahloQO9iAAGBVGBAMKQwAG1ZRSpDhjAV6dMcvX8w1XfrrPV/dHQYKAejDAhUlBMBfMm55zafN/OurqOYskSEocpIhy0YFBoSICBYKIoVVhVEFe+/KtdT6yGM7b7t19tCnLkdXV3eqRR8b/8AXDqePrRhrJ4zdoK/GLAg5L0mNigJCySuULpwoxDPnNJb+fF5Gx5NOO8Ke0bK4dvWJC0GeYLR+OJ/8YL0RBPLXjV91/LGZkx6votqz+qVPYsRCZFmIoGTCGATwmtSiqnoHV6GVtgeDu/4r9+SZs3fPvEi7OvsQ0t+smbLm2qPtx+8eOVQxVnK9jokiFgrMUSgUuIcWJuiTn5q8RIlBzL2ad6W+aupkf9S9V014+dqq6nllDSCpH6YJ36ceQ2+cTNlbqtctnaZHrKxw1Qd3aZ8DGQYMixJUE6BRQDQsizA8sUFlNMpujrY/eQ8/UnfOvr/5mUKzBPJ3HnznjG1Ttj56hBz2Tatq8iNySlljhQA6bdwOLaeJAEKNhoKnUAuksEqh8FXBxOFzAFDxkTCPzEa0z7c+vVWe+ccV7Se/3Ag1CwChd6SyUjNg6kDusrGNh8yMjr1lHNfMy7shAbxmiE3AB4EFIfRJwJIiUgWpuJGm3A5ot27jzd+ZLydeT21t/RLSX1pqHjljVnTYd0fxqKqBuNOzGiaAsmqxAdvBqsUUVQACgqhCQGE1KayoJ0A1ibYqCGSEQD35vKvUCcccEs9r/urYZy8MqUw6PLqhJZHWgdx3ap/5+yP4hObRUjOvNx5wQkJExoTWBohy4dlKBKeiTkRG6ki7M27b8rh/Zv783Uf+i7a1DiqARbWLRq+vXrvsaJl910g3oqo/7vbMkSHisNJMEFKYGWVLllpUQEnARKBUHxBApCAlECGIGgq5RAntYgKIiGN4Z3xJ+Viq/dynR5170O7S3G9/NTC/pxFqRqPWfhenuhlYMGbphAd+UItpDSSZikEMOUNsASIK90meG34SMwQiGclwCUppF+345a/lP09fuvestQqNGOz/tfLmvzifz7p3upnxuUEdkNg4NcyGBCCEcVtitKMHVlQLwkwoEDCigKGafEbJJAkAgUGQhFtqAp9kc1GsTsmPwX5nnZNtOHrLxFMvXbiTVgLwl+z38OyD4sNuH6MTDh/weWc0ZyIYK8mzQi1S4ONI8UJcJZXZQdPb/Tpeu2pR26ybAWA5lkcA3Kmjz6ucnznujmn+wJmdujeODEfGJ0VdmECYGINgU3SFBiAiIiilE+TQOEiTdh5oCHFYLaJwI/UKQ0xgtT2Sd1kZN/UQOerXV1S/eAOBWyf7Kd+KUDaqWwddxGyhFl6TeyZjojSNRJQ8yUhTajuo7Xdr6LkL6ls//7xCeSmWYhrOVwLpqswzN0zG/rPaaW8+Y00G6RyTrAhzDHyGwLAggqRfQIhSKm45oVnkLaDOC4OZmcAa6BcFyA8ZrRACDJEd8jmxmokm4vAriAEvHnkdkgyxDZFLAC0ZnFKQWSLqsshYyzBb9PXlV+QuvXxb98quejRbArnUymyc+MiiQ93083ql35E1GaUkGyil8FrUl0pQaDF1FYSUz5GEyDoFMkIYoH2+zI4yRhVKTpSYRQsLluZ08S0ze4jmNS/slAhCBoZT+UMESFivZLIKceoqOGt7o66eVrN9yeIdh98OEOrRbBtQ5xrRaAjkb5l6z/RZ/TN/oGCJWThSDsNIMSUZgyboGqqOwF4BL0iQNkFVSomzSCZiDJa2tuwyz1xjMOBNHLGPxYkoVBUKhSYcR4ngVeGhUAEJYJSIFYbSXhwWlZPnEDxUVI2UImt3a2vLo3z/pxfvOPz24AwINaDOKZTGYzydWb2k7IjeWT8Z48aO6tNBhTKLFvt+SnTS6WraiBVgSUAgsCNKWEhIS2JSWCBL5fm7d33iyjfkiZOGZM/vSxBZBsVEAU2ECCIKLxoUkBKUqfhgDpNSEDRZVFWCV/EZzjJlhDdkNt78df67+ct3LlrXHGicH0YrTR3q3OnZM6/eTyd/ost1OSPGeAKEufichGiIBkZKCdKpCjggQbLShEKOh8kT3BAwMNBj6qF8954TVr7AP5/bY97832UlJjJqyDvx6gHvARGFpIyGEKIMKqr1JK+8QF2sriTOmj7fu+N1//ypX2+dvri9Y3V/PZTrQG64dCOQu6N61WlTZNrFfTzgxBorAQ0T4AzPSLVpQJdiLREBVqBJWyH4tI9pWEsRRSyAwGgDSJZDows6aUcLLj710pqNizO++rqsG5WNOe8MkyUmgBPbJkkZUirMkUNLkoxhKmVrW/32lZvoua/c2nrqlkaoCQ2A5G2un7tuv98cenBu+jLJqXrjODIGokGiqSY0MenrWmhXSZoSQIbBKWlOo5ByXJ/0UcoCNhsBAHYBHoGQ6/d2f+z7r/ND83rtjt+VRRnLlkVYRZPa8BKi7AQQ4cByPFykGdYol9uafWXppZ37z7+1/dQtjWhMpFqRNiqUmgC6aPxF5Uf6I346mqvG9GNQVQwHHkwJi6MiHydASN9i6aULwaHGNICRhAFqSiKYwBZAZjhtbZC5WM310Mw9HX/31PO1t8zrzmy/LWOUI82wc96LJASAqEDKRaAVxtohdG34bfzEiVftmNmgUFqARrMQC99N05qFID8vc/EN1TLxyG7pdkwZFkqwJKGuvqC0UtoagC6UYgJKUFgFJZZESFlO2VDChOIYiN+mrVtQ51oALMD6TNPLh3U9ievOv6jq+ebK/NQbS1FZG3PegWEMESWAIJYM7+DN97T0NV60qv/KtuVYE1GoRf9u7h+B3E9qXzqn1h3wj/t8r2NmI1BwIiWTKgsllhAP0ZSrh8hy+iUQWFTCqicAlOZ46svkPZBzbxUif1O95rJjx/zXjCbMzJ+P56N6qF3W/vFfbJaH5/TozpVZZCwpE7xIQD9QTDGelXtuXtV/ZVs9GjMXYHb8bq6iJmDUUH3/UZPyk3/onXrHYoJfRIH0MyDEIW01zZpkglpE/lQoECioF69FhiLDEDeW9LNC0jMARPagc6qjT66ePXrVaSswO24AucUHb8o29SzcfGP3pPntvOlKjvL9GWTZO++8V41jh3JXWQ4obXiXKKaCHAC+XPujsTPkiP8YoRXlAzREpCZ4rVTsvwELSCCkqXHgJQCqJ8ATFc2zdOBpe8EwQBISiCpi9851HxjCHs2NHL8fH3X358f8ftkYHDnyR5un5f764E1ZQOmHew65ZrN/8vh+aVuX9SWWYhInXgd9n76f5XIolhKB5Mjc/GXjMWFaD/U4JssegXKKCXUojiEChTU8yDGpp2Fpm/ACShgfcSAMGNbjJIVrpM03acT0drOHrALqJRuXyJQLPzPm/sfn7X//Zx/cPC0HgBZjU/aOjuOfWonFc3bR+h+D8yabyZKPiv3xvazOm6pfvqyaD1jYLT2eyCSig+CT2lQCYjipkHLaqa3PbDO7nhqRKUfMXgutJn0NAyUuEAVFQpuKua1MIAuQeatvbSMFWxDgTEzeZez4w/fH3Pu+uN9rVwCkP0KI7gtdv+r+XvdhF+7gtYsGfc/ebG6kB4AZWKBvdwLrUOf+uez+ukluyrcHkRMxxMJJ6yAO4xKCJ9VSW6o9pm/wwb77Lhmh5buDEUoiiamtVJyHJPhjVYupqcP0qCJl4HhH7uZz0BIAzIzIwHo4iYfKMuV22tVn1LYe2xG/+JUHN0/bHFyGV7hh38y7Tim9faPV/nYAaBh2Q4WSgfELar6//8H+k8ttXJrNoV8yxlKRf2sgA0pQEYkyGbPGvnz9Te2XPvvp7LxxOfHQiBJ2nLSdhACHelVYxfBJFpmTDqtdSWTK6hSR1BNIwRweTgL28Doo8CNM9Qn7R8e0fKH2d1c27KJ/B4DzodGKQVrzFqez+FSSBcJHtZx0WxmNmjpgB1yk1opoAXgEodfDe1/hR5oN8eaHF+274BqF0r14Ja/KSfQoEe7D2F6yWIw09zWw/oLOTPoSqKjGClfUz1FEEIWKL4h6IiaTg/OMitpq8xf/dvqkTXccPemmiStAceIhvaXaz8daSyBpWP1KfZU/4Lhel4tBbEMKamEXUAI9lVJTyh22c+dj+siFijWOQJo1JUCUqCYfhIVPgYkSJaUMpgLpDgxCE4RLMzp2gcYNv7r1tWtiGcjDGVJSpYRDqypI2eRdLIODXioGpy6aPnh2yyk1a45rALn6YbBWj2a7ArPjJeOf+0IVDvrnAeS8J7FeikAilCggCMgbHYKndfzypbd2X7SlCa9EBdYQJd9VgleCpAIDBGEGmILDkJLhxM8o1iwA8ShY03MBqYKapr1077zyZ789Ljry247FCalVBSKEwmdlZgLyEscjzNiDSqj0rr+qbDyuoZteXIBGAwDfwmfc2eXLP1brpv9ITKQwQ8RqSDREhCmwHU8E8nCllLWvysvf+/reuU3NUDsXcABCJAVQE8CKEiooBQyglOsWpUyIafLLNNIGMMM8+CaQzEGzfWz/o/51gHetzCjbWOA1NbxVC2UYRRzlOI4zMmL85MwnV6B6VlkjFsgMLNAJNf9rxIHZE1dEXF47iEFRWPZE8Im+9clgvRdf4kvt77H1+Z/xj/8lIHSRcOQVcCkzooC6nlPzoBhlLuAPFZ0WHTZgMgDsW9qLzsVcwQbOt/c9/E+D+b272BtWqBAHIZDKQQ/AKEf9zrlSrf34mdp4LYG0ASRn53/xgwqu+VQ/DTmYyKSMzCfUM0FPyVAJ7eW9XS9g7RmPdyzrW5CIv3QwaU06TWs5LJRLFipOHA9LzEkr0SLsJq6cQosW4XD9kkS1JVe39diRzRfX0Cd+aRBpEKEgkcIN4APSmZx3bhxP+afPj3r40YnZitJKnXJuv8axJVgRDSma/FmiUFQ8qVgx2zJbL/3hrlNfT02yt2qclMSHiIIIIgIBwaEYVZsax8VoKmiYHRCi+05q2oI6NwdqWzroV/NrN98yjg5a3J8TZwk2deNSlsIgUlbjYKnG/uUdJZ7NgBDIOMtkSJM6YxDACiaCV/hKm7Fb86/d9s322Xc0Q20d3oVZaeC3KknnYIKAQ0scxuxY1RcQVpVAiV+kab3SW8zDt00WfgHU7Nn1m2/sy21/toTZKrwXUBDdiQUKAtgyORNrCY8dFfHoCmdjKAw5AVwyWEcKASMv6iOTsbvtnhd+G/3iqwrl1Vj6rpvOLikRp8l9klRNASlFby6weE12LKno6yLhvsMp8dtZ7wxAn8GSwQ7/5D8MSfce9RE5EVUtisbQrhRETF7z6pDXsOohYzy0kHpOVS0sdcu+vnW65rymjoa+pQDea3e9wIHT+yTmni+IcoJTRWJLJPHT1AsNTEGTXeb3O22U1utTXae/0pXfcDH7ISbPQgbKnHQsTsSChNxSzySSSEIigLlgpJFYB4B3y2uXrNh9wgvNaLYNw3ykdyw1DTu4gdBzRIqOpiQlxJTYglToMVTcUCrA0PsfVWhBnZ8DtY/2HPPzXrv1thGRMQrxIZJSMMcD1A/fveNCJINTD1fKHO3wW+68ds/RP6mH2jrU+fc/qlP0ijyHKDpROK8QT3Au3Jud94V+mc4z3WGiQir8n48GpfW6u/LxywapdUOWMtY5EScE5xLVn5wgktQLRvjcKSHnRbIU2T2ye/0ad98ljVDTkBw+eb8HD69PST1jk7YYwDlC7BRcFGgpO9JkvyKEHx/4nBwp0IS1Wy7o7uSXFg3EvX3qDbxqsHiIIByM7ZCmSc9UwHmv7Bnd6OvdmNlw9sM9Szqb0IQPci5C1YQskcTNVEp2DhCOcDLgxSmXZLNkjKh6hboQ7rAHChADCVX8QFcTFvo5aLYP7z5+bads/IYJew8SRH5oklrYaB5G1dR6w8Q7ZMPXf7b7sy/Uo9k2vbsz+E7UTbJCk/0cUYJ34RlKgGREs5lSYjjdh5jJeXhJFXhiAb5Fl37AqwV1rh5qH9l35LJ+fuPOkkxkBeok2bWThMn4hGZ6VVdijW3jrStu33vUj8MZhzr3QZ/nExFZUFycZIonxHn1WRlBQ4j3cb/Z+IVBv6+VnDUKJ8wpgSimg+DD/TNFA5aKQmmT/80lvbLnVaORjb2X1MBKty08xJeYyHaidd1z/j8uUyg3vEe/fM/UlVRoJzVKBDIEx96Xa6XZGu98o0Wf+Bw/3Ta3uUMf/aLwvs4Sm2GCuLB1GiqECTDmw55mbZClAG3oWdLZ6p4+L/a9/dZlVEQVrMk+pipTRIPU29VKG898rrOhZ2nytx/uWVwgPKmb6Yy6kSWjTFu27c3HMg99/rsdFzzNc6D2le4Fq9vMfQti2rPHiLXeea9CbwPxDzlVkMyB2ie7TnqqB69/LTJqKHSTxHhmzxrzTll/aWNb3fo54QTphz5yl4cL256JEIiddyWuwu51na/dyw+dcFPbueuboZZbQG4Omu2GvYtW7c4/fuJQvusN5K3xLkT2g/TR965X8vVQe3/XET/ukd//NHLWeA8Xe3KRN7Y7/8b3mzqOuaMealtA7g95hgcQJzXvVF2pjrQdrnXzY+bBE29tPfvVIOvI8XCC/nLnKc/0ZTceh6h/U0lkLJP6bAaw0R98elUbAF8P5Q3RXRf3Rm0vWlibVWN7zK4168puunJBsV/+QZfNROASwBvxFZly25Pp2vRU+RMn3LDzjNeboTY9Z8jDVt8tgJpnOo7ZPJBdf3Je924z3mbyOUg+9h/hyDnpBjTRho6Gvr2ZjX9P2cGYTV9/j3npS2t33zYw42368sNeIo6GhiCZoZGZ9rh929P8+Mnf27Fw8wI0mrr3y5I5yUGo6aN/fujcka1bTqxU/dSYcGz7w5z3e7dTnABwyrg1Xzl53LPnftR/Ukj/JeT6sS89cH+l6rLyN984uezqmR/qvulJ62llt8yaX7Vvx2drXm/5qBNNLDF+9/d/+ERvGftmy50T9u7466qrZw1f0A98pZH9xNh75x1TtfI/tdCSP/oh5I++YEFxK5S+MfqBpvMr76pLD1S+17f/G+ruLjcJS+/TAAAAAElFTkSuQmCC" alt="MERVEX"></div>
+  <div class="t"><b>A product of MERVEX</b><span>Email us · Build beyond limits.</span></div>
+</a>
+
+<script>
+const D={
+Motivation:["Your future is built by what you do today.","Start before you feel ready.","Small steps still cover the distance.","Discipline is a promise you keep to yourself.","Progress beats perfection every time.","The best time to begin was yesterday. The next best is now.","Consistency turns effort into results.","Do the hard thing first; the day gets lighter.","You don't need motivation, you need a starting point.","Every expert was once a beginner who kept going.","Doubt is loud, but action is louder.","Be the person your goals are waiting for.","One more attempt is all it takes to change the story.","Your limits are mostly drawn in pencil.","Show up on the days you don't feel like it.","Momentum is built, not found.","Fall seven times, plan the eighth.","Today's effort is tomorrow's confidence.","Don't wait for the spark. Strike the match.","Keep going. The view changes at every step."],
+Coding:["Make it work, make it right, make it fast.","Every bug is a lesson in disguise.","Read the error message. It's trying to help.","Good code is written for humans first.","Ship small, ship often.","Debugging is just detective work with semicolons.","Simple solutions outlive clever ones.","Delete code you don't need. It can't break.","Name things clearly and half your comments disappear.","A working prototype beats a perfect plan.","Learn the fundamentals; frameworks come and go.","Commit early, commit honestly.","Refactor when you understand, not when you're annoyed.","Tests are kindness to your future self.","The best feature is the one that's finished.","Curiosity is a developer's best tool.","Ask for help early; it's faster than staying stuck.","Build something small every week.","Complexity is easy. Clarity takes skill.","You don't learn to code by watching. You learn by building."],
+Success:["Success is a habit repeated daily.","Focus on the next right step, not the whole staircase.","Results come to those who outlast the doubt.","Work in silence and let your results speak.","Opportunity favors the prepared.","Be so good they can't ignore your work.","Define success on your own terms.","Growth lives just outside your comfort zone.","Great things are built by people who keep showing up.","Failure is data, not a verdict.","Build the skill and the opportunity follows.","Your network grows when you give first.","Quality is remembered long after speed is forgotten.","Make decisions, then make them right.","Set goals that scare you a little.","Patience and persistence beat talent that quits.","Protect your time like it's your most valuable asset.","Celebrate small wins; they fuel the big ones.","Aim to be useful, and success will find you.","Finish what you start."],
+Life:["Be kind. It costs nothing and changes everything.","Slow down; the moment is the point.","Gratitude turns enough into plenty.","Rest is part of the work.","Not every day is great, but every day has something good.","Choose peace over being right.","Your story isn't over because a chapter was hard.","Let go of what you can't control.","Spend time with people who make you feel lighter.","Breathe. You're doing better than you think.","Real wealth is time, health, and good people.","Say thank you more often.","Joy hides in ordinary moments.","Comparison steals what gratitude gives.","Forgive quickly; carry less.","Your pace is still progress.","Walk outside. The answer often shows up.","Be present, because this moment won't repeat.","Live in a way your future self would thank you for.","Today is a fresh page."],
+Creativity:["Make something even if no one asks for it.","Ideas grow when you give them space.","Creativity is intelligence having fun.","Your first draft is allowed to be messy.","Combine two old ideas to make a new one.","Constraints are the mother of invention.","Look at ordinary things as if for the first time.","Don't wait for inspiration; create and it will arrive.","Be original by being honest.","Mistakes are just unexpected design choices.","Curiosity is the engine of imagination.","Every masterpiece started as a blank page.","Play is the fastest way to learn.","Trust your taste; refine it with practice.","Break the rule once to see what happens.","Share your work before it feels ready.","A strange idea today is a standard tomorrow.","Draw the idea before you explain it.","Let your weird out. It's your signature.","Imagine it, then build it."]};
+const base=[];for(const c in D)D[c].forEach(t=>base.push({t,c,a:"MERVEX"}));
+const $=id=>document.getElementById(id);
+let cat="All",cur=null,comm=[],favs=[],timer,db=null;
+const cats=["All",...Object.keys(D)];
+try{favs=JSON.parse(localStorage.getItem("qf")||"[]")}catch(e){}
+try{comm=JSON.parse(localStorage.getItem("qc")||"[]")}catch(e){}
+function saveFavs(){try{localStorage.setItem("qf",JSON.stringify(favs))}catch(e){}}
+const pool=()=>base.concat(comm).filter(q=>cat==="All"||q.c===cat);
+function show(q){
+  const st=$("stage");st.classList.add("out");
+  setTimeout(()=>{cur=q;$("q").textContent="\u201C"+q.t+"\u201D";$("by").textContent="\u2014 "+q.a;st.classList.remove("out");favBtn()},280);
+  const p=$("prog");p.style.animation="none";void p.offsetWidth;p.style.animation="";
+}
+function next(){const p=pool();if(!p.length)return;let q;do{q=p[Math.floor(Math.random()*p.length)]}while(p.length>1&&cur&&q.t===cur.t);show(q);clearInterval(timer);timer=setInterval(next,10000)}
+function favBtn(){const on=cur&&favs.some(f=>f.t===cur.t);const b=$("fav");b.textContent=(on?"♥ Favorited":"♡ Favorite");b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)}
+function renderChips(){const w=$("chips");w.textContent="";cats.forEach(c=>{const b=document.createElement("button");b.className="chip";b.textContent=c;b.setAttribute("aria-pressed",c===cat);b.onclick=()=>{cat=c;renderChips();next()};w.appendChild(b)})}
+function li(q,rm){const l=document.createElement("li"),s=document.createElement("span");s.textContent=q.t;const sm=document.createElement("small");sm.textContent="\u2014 "+q.a+" · "+q.c;s.appendChild(sm);l.appendChild(s);if(rm){const b=document.createElement("button");b.textContent="Remove";b.onclick=rm;l.appendChild(b)}return l}
+function renderLists(){
+  const c=$("comm");c.textContent="";
+  if(!comm.length){const l=document.createElement("li");l.className="empty";l.textContent="No community quotes yet. Add the first one above.";c.appendChild(l)}
+  else comm.slice(0,20).forEach(q=>c.appendChild(li(q)));
+  const f=$("favs");f.textContent="";
+  if(!favs.length){const l=document.createElement("li");l.className="empty";l.textContent="Tap Favorite on any quote to keep it here.";f.appendChild(l)}
+  else favs.forEach(q=>f.appendChild(li(q,()=>{favs=favs.filter(x=>x.t!==q.t);saveFavs();renderLists();favBtn()})));
+}
+$("next").onclick=next;
+$("fav").onclick=()=>{if(!cur)return;favs=favs.some(f=>f.t===cur.t)?favs.filter(f=>f.t!==cur.t):[cur,...favs];saveFavs();renderLists();favBtn()};
+$("copy").onclick=async()=>{if(!cur)return;const t="\u201C"+cur.t+"\u201D \u2014 "+cur.a;const b=$("copy");try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(_){}a.remove()}b.textContent="Copied";setTimeout(()=>b.textContent="Copy quote",1500)};
+$("theme").onclick=()=>{const r=document.documentElement,l=r.dataset.theme==="light";r.dataset.theme=l?"dark":"light";$("theme").textContent=l?"☾":"☀";try{localStorage.setItem("qt",r.dataset.theme)}catch(e){}};
+try{const t=localStorage.getItem("qt");if(t==="light"){document.documentElement.dataset.theme="light";$("theme").textContent="☀"}}catch(e){}
+$("form").onsubmit=async e=>{
+  e.preventDefault();
+  const t=$("nt").value.trim().slice(0,160);if(t.length<8){$("msg").textContent="Write at least 8 characters.";return}
+  const q={t,a:($("nn").value.trim().slice(0,24)||"Anonymous"),c:$("nc").value,ts:Date.now()};
+  try{
+    if(db){await db.collection("quotes").add(q);$("msg").textContent="Added. Everyone can see it now."}
+    else{comm.unshift(q);try{localStorage.setItem("qc",JSON.stringify(comm))}catch(_){}renderLists();$("msg").textContent="Quote added and saved on this device."}
+    $("nt").value="";
+  }catch(err){$("msg").textContent="Couldn't add your quote. Try again in a moment."}
+};
+renderChips();renderLists();next();
+(async()=>{
+  try{
+    db=(window.claude&&await claude.use("db"));if(!db)return;
+    db.collection("quotes").orderBy("ts","desc").limit(100).onSnapshot(s=>{
+      comm=s.docs.map(d=>d.data()).filter(x=>x&&typeof x.t==="string").map(x=>({t:x.t.slice(0,160),a:String(x.a||"Anonymous").slice(0,24),c:cats.includes(x.c)?x.c:"Life"}));
+      renderLists();
+    },()=>{});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
